@@ -28,11 +28,10 @@ Question 3 : I change the input to
 Output: 0 1 2 4 3
 
 Question 4: I change the input to
-4
-100   2
-19   1
-30   2
-25   1
+        {0, 1, 3},
+        {0, 2, 6},
+        {0, 3, 4},
+        {1, 3, 5},
+        {2, 3, 4}
 Output: 
-Maximum Profit: 130
-Scheduled Tasks: [100, 30]
+11 ( 1 to 0 : 3 then 0 to 3 : 4 and 3 to 2 : 4, we have 3 + 4 + 4 = 11 )
