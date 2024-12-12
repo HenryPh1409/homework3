@@ -11,16 +11,12 @@ the output is
 
 
 Question 2: I change the input to 
-6
-ADD Task1 5
-ADD Task2 10
-ADD Task3 2
-GET
-Output: Task 2
-ADD Task4 20
-GET
-Output: Task 4
-Remaining tasks: [('Task1', 5), ('Task3', 2)]
+        {1, 4},       // Node 0 is connected to nodes 1 and 4
+        {0, 2, 3},    // Node 1 is connected to nodes 0, 2, and 3
+        {1, 3},       // Node 2 is connected to nodes 1 and 3
+        {1, 2, 4},    // Node 3 is connected to nodes 1, 2, and 4
+        {0, 3}        // Node 4 is connected to nodes 0 and 3
+Output: 0 1 4 2 3
 
 
 Question 3 : I change the input to
