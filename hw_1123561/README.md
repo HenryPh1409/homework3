@@ -20,11 +20,12 @@ Output: 0 1 4 2 3
 
 
 Question 3 : I change the input to
-3
-2 5 8
-1 4 7
-3 6 9
-Output: Merged Array: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        {1, 3},       // Node 0 is connected to nodes 1 and 3
+        {0, 2},       // Node 1 is connected to nodes 0 and 2
+        {1, 4},       // Node 2 is connected to nodes 1 and 4
+        {0, 4},       // Node 3 is connected to nodes 0 and 4
+        {2, 3}        // Node 4 is connected to nodes 2 and 3
+Output: 0 1 2 4 3
 
 Question 4: I change the input to
 4
