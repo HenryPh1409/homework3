@@ -1,69 +1,45 @@
 //Henry-1123561
-//28-11-2024
+//11-12-2024
+
 #include <iostream>
-#include <queue>
 #include <vector>
-#include <sstream> 
 using namespace std;
 
-struct Element {
-    int value;
-    int arrayIndex;
-    int elementIndex;
+// Helper function for recursive DFS
+void dfs_helper(int node, vector<vector<int>> &adj_list, vector<bool> &visited, vector<int> &dfs_result) {
+    visited[node] = true;
+    dfs_result.push_back(node);
 
-    bool operator>(const Element& other) const {
-        return value > other.value;
-    }
-};
-
-vector<int> mergeKSortedArrays(vector<vector<int>>& arrays) {
-    priority_queue<Element, vector<Element>, greater<Element>> minHeap;
-    vector<int> result;
-
-    // Insert the first element of each array into the min heap
-    for (int i = 0; i < arrays.size(); ++i) {
-        if (!arrays[i].empty()) {
-            minHeap.push({arrays[i][0], i, 0});
+    for (int neighbor : adj_list[node]) {
+        if (!visited[neighbor]) {
+            dfs_helper(neighbor, adj_list, visited, dfs_result);
         }
     }
+}
 
-    // Extract the smallest element from the heap and insert the next element from the same array
-    while (!minHeap.empty()) {
-        Element current = minHeap.top();
-        minHeap.pop();
-        result.push_back(current.value);
+// Function to perform DFS traversal of the graph
+vector<int> dfs_traversal(int V, vector<vector<int>> &adj_list) {
+    vector<int> dfs_result;
+    vector<bool> visited(V, false);
 
-        if (current.elementIndex + 1 < arrays[current.arrayIndex].size()) {
-            minHeap.push({arrays[current.arrayIndex][current.elementIndex + 1], current.arrayIndex, current.elementIndex + 1});
-        }
-    }
-
-    return result;
+    dfs_helper(0, adj_list, visited, dfs_result);
+    return dfs_result;
 }
 
 int main() {
-    int K;
-    cin >> K;
-    cin.ignore(); // Ignore the newline after reading K
-    vector<vector<int>> arrays(K);
+    vector<vector<int>> adj_list = {
+        {1, 3},       // Node 0 is connected to nodes 1 and 3
+        {0, 2},       // Node 1 is connected to nodes 0 and 2
+        {1, 4},       // Node 2 is connected to nodes 1 and 4
+        {0, 4},       // Node 3 is connected to nodes 0 and 4
+        {2, 3}        // Node 4 is connected to nodes 2 and 3
+    };
 
-    for (int i = 0; i < K; ++i) {
-        string line;
-        getline(cin, line); // Read the entire line
-        stringstream ss(line); 
-        int num;
-        while (ss >> num) {
-            arrays[i].push_back(num);
-        }
+    vector<int> dfs_result = dfs_traversal(adj_list.size(), adj_list);
+
+    for (int node : dfs_result) {
+        cout << node << " ";
     }
-
-    vector<int> mergedArray = mergeKSortedArrays(arrays);
-    cout << "Merged Array: [";
-    for (int i = 0; i < mergedArray.size(); ++i) {
-        cout << mergedArray[i];
-        if (i < mergedArray.size() - 1) cout << ", ";
-    }
-    cout << "]" << endl;
-
+    cout << endl;
     return 0;
 }
