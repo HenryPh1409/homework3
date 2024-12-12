@@ -1,6 +1,13 @@
 Henry-1123561:
-Question 1 : I change the input to { 5, 6, 7, -1, -1,-1,-1, 8, 9}
-the output is 2
+Question 1 : I change the input to  V= 6 edge= {{0, 1}, {0, 4}, {4, 1}, {4, 3}, {1, 3}, {1, 2}, {3, 2}, {5,3}, {5,4},{5,2}};
+the output is 
+
+0: 1 4
+1: 0 4 3 2
+2: 1 3 5
+3: 4 1 2 5
+4: 0 1 3 5
+5: 3 4 2
 
 
 Question 2: I change the input to 
