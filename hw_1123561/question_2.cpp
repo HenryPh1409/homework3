@@ -1,54 +1,49 @@
 //Henry-1123561
-//28-11-2024
+//11-12-2024
+
 #include <iostream>
-#include <queue>
 #include <vector>
-#include <string>
+#include <queue>
 using namespace std;
 
-struct Task {
-    string name;
-    int priority;
+// Function to perform BFS traversal of the graph
+vector<int> bfs_traversal(int V, vector<vector<int>> &adj_list) {
+    vector<int> bfs_result;         
+    vector<bool> visited(V, false); 
+    queue<int> q;                   
 
-    // Overload the < operator for the priority queue
-    bool operator<(const Task& other) const {
-        return priority < other.priority;
-    }
-};
+    q.push(0);                      
+    visited[0] = true;
 
-int main() {
-    priority_queue<Task> pq;
-    int N;
-    cin >> N;
-    for (int i = 0; i < N; ++i) {
-        string command;
-        cin >> command;
-        if (command == "ADD") {
-            string name;
-            int priority;
-            cin >> name >> priority;
-            pq.push({name, priority});
-        } else if (command == "GET") {
-            if (!pq.empty()) {
-                cout << pq.top().name << endl;
-                pq.pop();
+    while (!q.empty()) {
+        int node = q.front();       
+        q.pop();
+        bfs_result.push_back(node); 
+
+        for (int neighbor : adj_list[node]) {
+            if (!visited[neighbor]) {
+                visited[neighbor] = true; 
+                q.push(neighbor);         
             }
         }
     }
+    return bfs_result; 
+}
 
-    cout << "Remaining tasks: ";
-    vector<Task> remainingTasks;
-    while (!pq.empty()) {
-        remainingTasks.push_back(pq.top());
-        pq.pop();
+int main() {
+    vector<vector<int>> adj_list = {
+        {1, 4},       // Node 0 is connected to nodes 1 and 4
+        {0, 2, 3},    // Node 1 is connected to nodes 0, 2, and 3
+        {1, 3},       // Node 2 is connected to nodes 1 and 3
+        {1, 2, 4},    // Node 3 is connected to nodes 1, 2, and 4
+        {0, 3}        // Node 4 is connected to nodes 0 and 3
+    };
+
+    vector<int> bfs_result = bfs_traversal(adj_list.size(), adj_list);
+
+    for (int node : bfs_result) {
+        cout << node << " ";
     }
-
-    cout << "[";
-    for (int i = 0; i < remainingTasks.size(); ++i) {
-        cout << "('" << remainingTasks[i].name << "', " << remainingTasks[i].priority << ")";
-        if (i < remainingTasks.size() - 1) cout << ", ";
-    }
-    cout << "]" << endl;
-
+    cout << endl;
     return 0;
 }
